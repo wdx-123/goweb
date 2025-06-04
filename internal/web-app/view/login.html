@@ -1,31 +1,75 @@
-<!-- 修改后的关键部分 -->
-<div class="card">
-    <div class="card-header bg-primary text-white"> <!-- 原蓝色不变，但通过 CSS 变量统一为深蓝 -->
-        <h3 class="card-title fw-bold">用户登录</h3> <!-- 标题加粗 -->
-    </div>
-    <div class="card-body">
-        <form>
-            <div class="mb-4"> <!-- 增加表单间距 -->
-                <label for="username" class="form-label fw-semibold text-dark">用户名</label> <!-- 标签加粗、深灰文本 -->
-                <input type="text" class="form-control" id="username" required>
-            </div>
-            <div class="mb-4">
-                <label for="password" class="form-label fw-semibold text-dark">密码</label>
-                <input type="password" class="form-control" id="password" required>
-            </div>
-            <div class="mb-4 d-flex align-items-center"> <!-- 记住我组件左对齐，增加间距 -->
-                <input type="checkbox" class="form-check-input me-2" id="rememberMe">
-                <label class="form-check-label fw-semibold text-dark" for="rememberMe">记住我</label> <!-- 标签加粗 -->
-            </div>
-            <button type="submit" class="btn btn-primary btn-lg w-100"> <!-- 按钮加大 -->
-                登录 <i class="bi bi-box-arrow-in-right ms-1"></i> <!-- 增加图标（需引入 Bootstrap 图标库） -->
-            </button>
-        </form>
-        <div class="mt-4 text-center">
-            还没有账号？<a href="/register" class="text-link fw-medium">立即注册</a> <!-- 链接加粗 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>优雅登录</title>
+    <!-- 引入 Google Fonts 的 Nunito 字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/custom.css">
+</head>
+
+<body>
+<div class="glassmorphism-card">
+    <!-- 登录表单 -->
+    <form id="loginForm">
+        <!-- 标题 -->
+        <div class="mb-4 text-center">
+            <h2 class="fw-bold">用户登录</h2>
         </div>
-    </div>
+
+        <!-- 用户名输入框 -->
+        <div class="input-container">
+            <input type="text" id="username" name="username" required>
+            <label for="username">用户名</label>
+            <p class="error-message" id="usernameError">请输入用户名</p>
+        </div>
+
+        <!-- 密码输入框（带显示/隐藏功能） -->
+        <div class="input-container">
+            <input type="password" id="password" name="password" required>
+            <label for="password">密码</label>
+            <span class="password-toggle" onclick="togglePasswordVisibility()">
+                    <i class="fa fa-eye" id="eyeIcon"></i>
+                </span>
+            <p class="error-message" id="passwordError">请输入密码</p>
+        </div>
+
+        <!-- 记住我 -->
+        <div class="remember-me">
+            <input type="checkbox" id="rememberMe" name="rememberMe">
+            <label for="rememberMe">记住我</label>
+        </div>
+
+        <!-- 主按钮 & 加载状态 -->
+        <button type="submit">
+            <span id="buttonText">登录</span>
+            <div class="spinner" id="spinner"></div>
+        </button>
+
+        <!-- 第三方登录 -->
+        <div class="mt-4 text-center">
+            <p class="mb-3">或使用第三方账号登录</p>
+            <button class="social-btn google-btn">
+                <i class="fa fa-google"></i> 使用 Google 登录
+            </button>
+            <button class="social-btn github-btn">
+                <i class="fa fa-github"></i> 使用 GitHub 登录
+            </button>
+        </div>
+
+        <!-- 忘记密码 & 注册引导 -->
+        <div class="mt-3 text-center">
+            <a href="#" class="link">忘记密码？</a>
+            <p>还没有账号？ <a href="/register" class="link fw-semibold">立即注册</a></p>
+        </div>
+    </form>
 </div>
 
-<!-- 引入 Bootstrap 图标库（在 </body> 前添加） -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<!-- FontAwesome 图标库 -->
+<script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script>
+<script src="web/static/js/login.js"></script>
+</body>
+
+</html>

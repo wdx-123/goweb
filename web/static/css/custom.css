@@ -1,73 +1,205 @@
-/* 主色调：深海军蓝（#1a237e）+ 深灰色（#333）+ 浅灰（#f5f5f5） */
-:root {
-    --primary-color: #1a237e;   /* 主色：深蓝 */
-    --secondary-color: #3f51b5; /* 次色：稍浅蓝 */
-    --text-color: #333;         /* 文本色：深灰 */
-    --bg-color: #f5f5f5;        /* 背景色：浅灰 */
-    --button-hover: #10194d;    /* 按钮悬停色：更深蓝 */
+ /* 全局样式 */
+body {
+    font-family: 'Nunito', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    /* 背景渐变 */
+    background: linear-gradient(to bottom, #a1c4fd, #c2e9fb);
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
-body {
-    min-height: 100vh;
+/* 玻璃拟态卡片 */
+.glassmorphism-card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    border-radius: 20px;
+    padding: 2.5rem;
+    width: 400px;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+/* 响应式设计：移动端内边距调整 */
+@media (max-width: 576px) {
+    .glassmorphism-card {
+        padding: 1.8rem;
+    }
+}
+
+/* 输入框容器 */
+.input-container {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+/* 输入框 */
+.input-container input {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    font-family: 'Nunito', sans-serif;
+}
+
+/* 输入框聚焦状态 */
+.input-container input:focus {
+    border-color: #7c9eff;
+    box-shadow: 0 0 0 2px rgba(124, 158, 255, 0.25);
+    outline: none;
+}
+
+/* 输入框占位符 */
+.input-container input::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+    font-style: italic;
+}
+
+/* 浮动标签 */
+.input-container label {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    color: #333;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+/* 输入框聚焦或有内容时标签上移 */
+.input-container input:focus~label,
+.input-container input:valid~label {
+    top: -0.7rem;
+    left: 0.8rem;
+    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 0 0.2rem;
+    border-radius: 4px;
+}
+
+/* 按钮 */
+button {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 12px;
+    background: linear-gradient(to right, #7c9eff, #6a8af0);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: none;
+    box-shadow: 0 4px 14px 0 rgba(124, 158, 255, 0.35);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+/* 按钮悬停状态 */
+button:hover {
+    background: #6a8af0;
+    box-shadow: 0 6px 18px 0 rgba(124, 158, 255, 0.45);
+    transform: translateY(-2px);
+}
+
+/* 按钮激活状态 */
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px 0 rgba(124, 158, 255, 0.3);
+}
+
+/* 密码可见性切换按钮 */
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    color: #5a6dbb;
+    cursor: pointer;
+}
+
+/* 其他链接 */
+.link {
+    color: #5a6dbb;
+    text-decoration: none;
+    margin-top: 0.5rem;
+    display: inline-block;
+}
+
+/* 其他链接悬停状态 */
+.link:hover {
+    text-decoration: underline;
+    color: #4a5caa;
+}
+
+/* 错误信息 */
+.error-message {
+    color: #ff6b81;
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+}
+
+/* 记住我复选框 */
+.remember-me {
     display: flex;
     align-items: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    background-color: var(--bg-color); /* 浅灰背景 */
-    font-family: 'Segoe UI', sans-serif; /* 无衬线字体，更现代 */
+    margin-bottom: 1.5rem;
 }
 
-.card {
-    box-shadow: 0 0.8rem 1.5rem rgba(0,0,0,0.1); /* 更柔和的阴影，增强立体感 */
-    border-radius: 10px; /* 稍圆润的边角，避免过于锐利 */
-    background-color: white; /* 卡片白色背景，高对比度 */
+/* 第三方登录按钮 */
+.social-btn {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.6);
+    color: #333;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    transition: all 0.2s ease-in-out;
 }
 
-.card-header {
-    background-color: var(--primary-color); /* 深蓝标题栏 */
+/* 第三方登录按钮悬停状态 */
+.social-btn:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: translateY(-2px);
+}
+
+/* Google 登录按钮 */
+.google-btn {
+    background: rgba(220, 74, 61, 0.8);
     color: white;
-    font-weight: 600; /* 加粗标题 */
-    letter-spacing: 0.8px; /* 字母间距，提升视觉呼吸感 */
 }
 
-.form-control {
-    border-color: #ddd; /* 浅灰边框 */
-    font-size: 1rem;
+/* GitHub 登录按钮 */
+.github-btn {
+    background: rgba(36, 41, 46, 0.8);
+    color: white;
 }
 
-.form-control:focus {
-    border-color: var(--primary-color); /* 聚焦时深蓝边框 */
-    box-shadow: 0 0 0 0.2rem rgba(26, 35, 126, 0.15); /* 更低调的聚焦阴影 */
+/* 加载指示器 */
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+    display: none;
 }
 
-.btn {
-    font-weight: 500; /* 按钮文字加粗 */
-    border-radius: 8px; /* 按钮边角圆润 */
-    padding: 10px 24px; /* 增加内边距，更显大气 */
-}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
 
-.btn-primary {
-    background-color: var(--primary-color); /* 主按钮深蓝 */
-    border-color: var(--primary-color);
-}
-
-.btn-primary:hover {
-    background-color: var(--button-hover); /* 悬停时更深蓝 */
-    border-color: var(--button-hover);
-}
-
-.btn-secondary { /* 新增辅助按钮样式（如注册页的登录链接） */
-    color: var(--primary-color);
-    border-color: var(--primary-color);
-    font-weight: 500;
-}
-
-.text-link {
-    color: var(--primary-color);
-    text-decoration: none;
-}
-
-.text-link:hover {
-    color: var(--button-hover);
-    text-decoration: underline;
+    100% {
+        transform: rotate(360deg);
+    }
 }
