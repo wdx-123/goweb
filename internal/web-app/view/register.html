@@ -1,0 +1,28 @@
+<!-- 修改后的关键部分 -->
+<div class="card">
+    <div class="card-header bg-secondary text-white"> <!-- 注册页标题栏用次色（稍浅蓝） -->
+        <h3 class="card-title fw-bold">用户注册</h3>
+    </div>
+    <div class="card-body">
+        <form>
+            <div class="mb-4">
+                <label for="regUsername" class="form-label fw-semibold text-dark">用户名</label>
+                <input type="text" class="form-control" id="regUsername" required>
+            </div>
+            <div class="mb-4">
+                <label for="regPassword" class="form-label fw-semibold text-dark">密码</label>
+                <input type="password" class="form-control" id="regPassword" required>
+            </div>
+            <div class="mb-4">
+                <label for="confirmPassword" class="form-label fw-semibold text-dark">确认密码</label>
+                <input type="password" class="form-control" id="confirmPassword" required>
+            </div>
+            <button type="submit" class="btn btn-secondary btn-lg w-100"> <!-- 注册按钮用次色 -->
+                注册 <i class="bi bi-person-plus ms-1"></i> <!-- 增加图标 -->
+            </button>
+        </form>
+        <div class="mt-4 text-center">
+            已有账号？<a href="/login" class="text-link fw-medium">立即登录</a>
+        </div>
+    </div>
+</div>
