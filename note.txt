@@ -6,3 +6,65 @@ go.work的作用： 用于多模块管理（一个mod下，管理多个mod）
 已解决：
 1、controller中写路由、server中写具体的实现函数
 
+
+
+
+大纲
+
+GoWeb（项目根目录）
+
+cmd（命令执行入口层）
+    web（Web 服务启动相关）
+        main.go（Web 服务主入口，负责初始化、启动整体服务 ）
+
+internal（内部业务逻辑层，存放项目专属、不对外暴露的代码）
+    web-app（Web 应用核心业务模块 ）
+        controller（控制器层）：处理请求、协调业务逻辑与视图 / 响应 ，如接收 HTTP 请求、调用 service 方法、返回结果
+        dao（数据访问层）：封装数据库操作（增删改查等），与数据库交互，屏蔽具体存储细节
+        model（模型层）：定义数据结构（如数据库表映射结构体、业务实体），规范数据格式
+        server（服务层）：实现业务逻辑，整合 dao 层操作，为 controller 提供服务支持
+        view（视图层，若涉及模板渲染等场景）：存放页面模板、视图相关资源，或处理响应渲染逻辑
+
+web（Web 静态资源、前端相关层）
+    static（静态资源目录）：存放 CSS、JS、图片等静态文件，供前端页面加载
+
+go.mod（Go 模块依赖配置文件）：管理项目依赖的第三方库及版本
+
+note.txt（项目说明文档，记录项目相关备注、设计思路等信息 ，内容需结合实际补充 ）
+
+GoUserSystem/
+├── cmd/
+│   └── web/
+│       └── main.go  // 程序入口，启动 HTTP 服务、初始化依赖
+├── internal/
+│   ├── userapp/
+│   │   ├── controller/  // 处理 HTTP 请求，协调业务逻辑与视图
+│   │   │   ├── auth_controller.go  // 注册、登录逻辑
+│   │   │   └── user_controller.go  // 用户列表、编辑、删除逻辑
+│   │   ├── dao/  // 数据访问层，操作存储（如内存、文件、数据库，示例用内存模拟）
+│   │   │   └── user_dao.go  // 用户数据增删改查
+│   │   ├── model/  // 数据模型定义
+│   │   │   └── user.go  // User 结构体（含权限标识：普通用户/管理员）
+│   │   └── service/  // 业务逻辑层，封装复杂业务规则
+│   │       └── user_service.go  // 权限校验、用户操作逻辑
+│   └── view/  // 模板文件目录
+│       ├── layouts/  // 通用布局模板（如 header、footer）
+│       │   └── base.html
+│       ├── auth/  // 认证相关页面模板
+│       │   ├── register.html
+│       │   └── login.html
+│       └── user/  // 用户管理页面模板
+│           ├── list.html  // 用户列表
+│           ├── edit.html  // 用户编辑
+│           └── delete_confirm.html  // 删除确认
+├── web/
+│   ├── static/  // 静态资源（CSS、JS、Bootstrap 等）
+│   │   ├── css/
+│   │   │   └── style.css
+│   │   ├── js/
+│   │   │   └── script.js
+│   │   └── libs/
+│   │       └── bootstrap/  // Bootstrap 库（本地或 CDN 引入）
+│   └── templates/  // 备用模板目录（若需分离模板加载逻辑）
+├── go.mod  // Go 模块依赖配置
+└── README.md  // 项目说明文档
