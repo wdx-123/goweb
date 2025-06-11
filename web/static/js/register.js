@@ -1,25 +1,10 @@
-// 密码显示/隐藏功能
-function togglePasswordVisibility(inputId, iconId) {
-    const passwordInput = document.getElementById(inputId);
-    const eyeIcon = document.getElementById(iconId);
-    if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        eyeIcon.classList.remove('fa-eye');
-        eyeIcon.classList.add('fa-eye-slash');
-    } else {
-        passwordInput.type = 'password';
-        eyeIcon.classList.remove('fa-eye-slash');
-        eyeIcon.classList.add('fa-eye');
-    }
-}
+function handleReister() {
+    // 1、收集表单数据
+    const username = document.getElementById('regUsername').value.trim();
+    const password = document.getElementById('regPassword').value.trim();
+    const confirmPassword = document.getElementById('confirmPassword').value.trim();
 
-// 表单提交处理
-document.querySelector('form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const username = document.getElementById('regUsername').value;
-    const password = document.getElementById('regPassword').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-    const button = this.querySelector('button');
+    const button = document.getElementById('registerForm').querySelector('button');
     const buttonText = document.getElementById('buttonText');
     const spinner = document.getElementById('spinner');
 
@@ -28,7 +13,7 @@ document.querySelector('form').addEventListener('submit', function (e) {
     buttonText.style.display = 'none';
     spinner.style.display = 'block';
 
-    // 简单的表单验证
+    // 前端基础验证
     let hasError = false;
     if (username === '') {
         document.getElementById('usernameError').style.display = 'block';
@@ -62,19 +47,51 @@ document.querySelector('form').addEventListener('submit', function (e) {
         document.getElementById('confirmPassword').style.borderColor = 'rgba(0, 0, 0, 0.1)';
     }
 
-    if (!hasError) {
-        // 模拟异步请求（实际需替换为真实接口）
-        setTimeout(() => {
-            button.disabled = false;
-            buttonText.style.display = 'inline';
-            spinner.style.display = 'none';
-            // 跳转页面
-            window.location.href = '/dashboard';
-        }, 2000);
-    } else {
-        // 恢复按钮状态
+    if (hasError) {
+        // 恢复按钮状态（仅在验证失败时）
         button.disabled = false;
         buttonText.style.display = 'inline';
         spinner.style.display = 'none';
+        return; // 终止函数，不发送请求
     }
-});
+
+    // 发送真实 AJAX 请求
+    fetch('/api/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'X-CSRF-Token': '{{ csrf_token }}', // 启用 CSRF 保护
+        },
+        body: JSON.stringify({
+            username: username,
+            password: password,
+            confirmPassword: confirmPassword
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            // 处理后端返回结果
+            if (data.code === 0) {
+                // 注册成功
+                alert('注册成功！即将跳转');
+                window.location.href = '/dashboard';
+            } else {
+                // 注册失败，显示后端错误
+                showBackendError(data.msg);
+            }
+        })
+        .catch(error => {
+            console.error('网络错误:', error);
+            showBackendError('网络请求失败，请重试');
+        })
+        .finally(() => {
+            // 恢复按钮状态（无论成功失败）
+            button.disabled = false;
+            buttonText.style.display = 'inline';
+            spinner.style.display = 'none';
+        });
+}
+
+function showBackendError(msg) {
+    alert(msg);
+}
