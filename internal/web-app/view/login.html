@@ -18,7 +18,8 @@
         <div class="mb-4 text-center">
             <h2 class="fw-bold">用户登录</h2>
         </div>
-
+        <!-- 新增：全局错误提示（初始隐藏） -->
+        <div class="global-error" id="globalError"></div>
         <!-- 用户名输入框 -->
         <div class="input-container">
             <input type="text" id="username" name="username" required>
@@ -64,12 +65,12 @@
             <a href="#" class="link">忘记密码？</a>
             <p>还没有账号？ <a href="/register" class="link fw-semibold">立即注册</a></p>
         </div>
+        
     </form>
 </div>
 
 <!-- FontAwesome 图标库 -->
 <script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script>
-<script src="web/static/js/login.js"></script>
+<script src="static/js/login.js"></script>
 </body>
-
 </html>

@@ -1,0 +1,180 @@
+2025/07/06 15:21:00 main.go:30: http://localhost:8888/login
+2025/07/06 20:39:59 initDB.go:26: 数据库连接成功
+2025/07/06 20:39:59 main.go:30: http://localhost:8888/login
+2025/07/07 08:31:39 initDB.go:26: 数据库连接成功
+2025/07/07 08:31:39 main.go:32: http://localhost:8888/login
+2025/07/07 08:37:53 initDB.go:26: 数据库连接成功
+2025/07/07 08:37:53 main.go:32: http://localhost:8888/login
+2025/07/07 08:40:28 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 08:40:28 createUser.go:16: dao中createUser包调用失败： Error 1062 (23000): Duplicate entry '白小纯' for key 'user.username'
+2025/07/07 08:40:28 register.go:36: Error 1062 (23000): Duplicate entry '白小纯' for key 'user.username'
+2025/07/07 08:40:35 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '王五' in 'where clause'
+2025/07/07 08:51:53 initDB.go:26: 数据库连接成功
+2025/07/07 08:51:53 main.go:32: http://localhost:8888/login
+2025/07/07 08:53:59 initDB.go:26: 数据库连接成功
+2025/07/07 08:53:59 main.go:32: http://localhost:8888/login
+2025/07/07 08:55:26 initDB.go:26: 数据库连接成功
+2025/07/07 08:55:26 main.go:32: http://localhost:8888/login
+2025/07/07 08:56:23 initDB.go:26: 数据库连接成功
+2025/07/07 08:56:23 main.go:32: http://localhost:8888/login
+2025/07/07 09:01:35 initDB.go:26: 数据库连接成功
+2025/07/07 09:01:35 main.go:32: http://localhost:8888/login
+2025/07/07 09:02:25 initDB.go:26: 数据库连接成功
+2025/07/07 09:02:25 main.go:32: http://localhost:8888/login
+2025/07/07 09:04:57 initDB.go:26: 数据库连接成功
+2025/07/07 09:04:57 main.go:32: http://localhost:8888/login
+2025/07/07 09:04:57 main.go:36: 监听出现错误： listen tcp :8888: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+2025/07/07 09:06:57 initDB.go:26: 数据库连接成功
+2025/07/07 09:06:57 main.go:32: http://localhost:8000/login
+2025/07/07 09:07:43 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:07:43 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:07:43 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:07:43 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:07:43 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:07:45 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:07:45 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:07:45 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:07:45 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:07:45 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:07:59 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:07:59 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:07:59 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:07:59 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:07:59 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:08:01 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:08:01 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:08:01 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:08:01 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:08:01 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:08:01 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:08:01 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:08:01 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:08:01 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:08:01 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:08:02 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:08:02 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:08:02 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:08:02 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:08:02 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:08:02 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:08:02 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:08:02 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:08:02 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:08:02 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:08:02 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:08:02 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:08:02 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:08:02 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:08:02 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:08:02 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:08:02 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:08:02 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:08:02 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:08:02 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:08:02 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:08:02 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:08:02 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:08:02 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:08:02 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:08:14 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:08:14 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:08:14 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:08:14 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:08:14 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:08:20 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:08:20 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:08:20 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:08:20 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:08:20 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:08:20 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:08:20 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:08:20 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:08:20 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:08:20 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:08:43 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:08:43 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:08:43 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:08:43 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:08:43 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:12:47 initDB.go:26: 数据库连接成功
+2025/07/07 09:12:59 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:12:59 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:12:59 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:12:59 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:12:59 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:13:01 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:13:01 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:13:01 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:13:01 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:13:01 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:13:01 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:13:01 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:13:01 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:13:01 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:13:01 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:13:01 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:13:01 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:13:01 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:13:01 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:13:01 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:13:01 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:13:01 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:13:01 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:13:01 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:13:01 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:13:01 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:13:01 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:13:01 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:13:01 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:13:01 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:13:01 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:13:01 findUser.go:21: dao中 FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:13:01 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:13:01 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:13:01 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)2025/07/07 09:33:56 initDB.go:26: 数据库连接成功
+2025/07/07 09:34:06 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:34:06 findUser.go:25: FindUser包出错 Error 1054 (42S22): Unknown column '白小纯' in 'where clause'
+2025/07/07 09:34:06 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:34:06 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:34:06 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:36:47 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:36:47 findUser.go:25: FindUser包出错 Error 1054 (42S22): Unknown column '李四' in 'where clause'
+2025/07/07 09:36:47 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:36:47 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:36:47 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:36:58 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:36:58 findUser.go:25: FindUser包出错 Error 1054 (42S22): Unknown column '李四' in 'where clause'
+2025/07/07 09:36:58 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:36:58 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:36:58 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:37:10 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:37:10 findUser.go:25: FindUser包出错 Error 1054 (42S22): Unknown column '李四' in 'where clause'
+2025/07/07 09:37:10 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:37:10 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:37:10 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:37:11 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:37:11 findUser.go:25: FindUser包出错 Error 1054 (42S22): Unknown column '李四' in 'where clause'
+2025/07/07 09:37:11 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:37:11 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:37:11 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:37:14 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:37:14 findUser.go:25: FindUser包出错 Error 1054 (42S22): Unknown column '李四' in 'where clause'
+2025/07/07 09:37:14 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:37:14 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:37:14 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 09:57:24 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 09:57:24 findUser.go:25: FindUser包出错 Error 1054 (42S22): Unknown column '张三' in 'where clause'
+2025/07/07 09:57:24 login.go:15: 登入界面：不存在该用户
+2025/07/07 09:57:24 login.go:43: 用户不存在或密码不匹配
+2025/07/07 09:57:24 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 10:40:54 initDB.go:26: 数据库连接成功
+2025/07/07 10:41:05 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 10:41:05 findUser.go:25: FindUser包出错 sql: Scan error on column index 4, name "created_at": unsupported Scan, storing driver.Value type []uint8 into type *time.Time
+2025/07/07 10:41:05 login.go:16: 登入界面：不存在该用户
+2025/07/07 10:41:05 login.go:43: 用户不存在或密码不匹配
+2025/07/07 10:41:05 server.go:3489: http: superfluous response.WriteHeader call from GoWeb/internal/web-app/controller.SendErrorResponse (tool.go:10)
+2025/07/07 10:56:03 initDB.go:26: 数据库连接成功
+2025/07/07 11:00:19 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 11:01:11 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 11:01:21 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 11:01:38 login.go:23: 申请了LoginUserHandler函数

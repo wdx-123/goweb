@@ -14,6 +14,7 @@ function handleReister() {
     spinner.style.display = 'block';
 
     // 前端基础验证
+    // 不为空、两次输入的密码不匹配
     let hasError = false;
     if (username === '') {
         document.getElementById('usernameError').style.display = 'block';
@@ -74,7 +75,7 @@ function handleReister() {
             if (data.code === 0) {
                 // 注册成功
                 alert('注册成功！即将跳转');
-                window.location.href = '/dashboard';
+                window.location.href = '/dashboard_login';
             } else {
                 // 注册失败，显示后端错误
                 showBackendError(data.msg);

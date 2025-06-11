@@ -203,3 +203,11 @@ button:active {
         transform: rotate(360deg);
     }
 }
+ /* 全局错误提示（初始隐藏） */
+ .global-error {
+     color: #ff6b81; /* 错误红色 */
+     text-align: center;
+     margin-bottom: 15px;
+     height: 20px; /* 固定高度避免闪烁 */
+     display: none; /* 初始隐藏 */
+ }
