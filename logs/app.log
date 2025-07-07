@@ -178,3 +178,4 @@
 2025/07/07 11:01:11 login.go:23: 申请了LoginUserHandler函数
 2025/07/07 11:01:21 login.go:23: 申请了LoginUserHandler函数
 2025/07/07 11:01:38 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 15:39:29 initDB.go:26: 数据库连接成功
