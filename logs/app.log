@@ -179,3 +179,20 @@
 2025/07/07 11:01:21 login.go:23: 申请了LoginUserHandler函数
 2025/07/07 11:01:38 login.go:23: 申请了LoginUserHandler函数
 2025/07/07 15:39:29 initDB.go:26: 数据库连接成功
+2025/07/07 16:15:44 initDB.go:26: 数据库连接成功
+2025/07/07 16:16:07 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 16:16:07 cookie.go:491: net/http: invalid byte 'ç' in Cookie.Value; dropping invalid bytes
+2025/07/07 16:17:17 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 16:17:17 cookie.go:491: net/http: invalid byte 'ç' in Cookie.Value; dropping invalid bytes
+2025/07/07 16:28:51 initDB.go:26: 数据库连接成功
+2025/07/07 16:29:49 initDB.go:26: 数据库连接成功
+2025/07/07 16:29:53 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 16:29:53 cookie.go:491: net/http: invalid byte 'ç' in Cookie.Value; dropping invalid bytes
+2025/07/07 16:45:08 initDB.go:26: 数据库连接成功
+2025/07/07 16:45:15 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 16:45:15 cookie.go:491: net/http: invalid byte 'ç' in Cookie.Value; dropping invalid bytes
+2025/07/07 16:46:29 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 16:46:29 cookie.go:491: net/http: invalid byte 'ç' in Cookie.Value; dropping invalid bytes
+2025/07/07 16:53:48 initDB.go:26: 数据库连接成功
+2025/07/07 16:53:53 login.go:23: 申请了LoginUserHandler函数
+2025/07/07 16:53:53 cookie.go:491: net/http: invalid byte 'ç' in Cookie.Value; dropping invalid bytes

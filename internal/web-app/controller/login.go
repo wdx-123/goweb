@@ -37,6 +37,7 @@ func LoginUserHandler(w http.ResponseWriter, r *http.Request) {
 		SendErrorResponse(w, pkg.StatusCodeMap[400], "400：参数错误")
 		return
 	}
+
 	// 调用这里的函数
 	if err := AuthService.LoginDetection(loginReq); err != nil {
 		w.WriteHeader(pkg.StatusCodeMap[400])
@@ -65,17 +66,29 @@ func LoginUserHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func Dashboard(w http.ResponseWriter, r *http.Request) {
-	// 检查Cookie（验证是否登录）
-	cookie, err := r.Cookie("user_session")
+	t, err := template.ParseFiles("internal/web-app/view/index.html")
 	if err != nil {
-		// 没有Cookie：未登录，跳回登录页
-		http.Redirect(w, r, "/static/index.html", http.StatusFound)
-		return
+		log.Println(err)
 	}
-
-	// 有Cookie：显示登录成功页面
-	w.Write([]byte(`
-        <h1>欢迎回来，` + cookie.Value + `！</h1>
-        <a href="/logout">退出登录</a>
-    `))
+	// 检查Cookie（验证是否登录）
+	//cookie, err := r.Cookie("user_session")
+	//if err != nil {
+	//	// 没有Cookie：未登录，跳回登录页
+	//	http.Redirect(w, r, "/static/index.html", http.StatusFound)
+	//	return
+	//}
+	//
+	//// 有Cookie：显示登录成功页面
+	//w.Write([]byte(`
+	//    <h1>欢迎回来，` + cookie.Value + `！</h1>
+	//    <a href="/logout">退出登录</a>
+	//`))
+	t.Execute(w, nil)
+}
+func Test2(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("internal/web-app/view/user.html")
+	if err != nil {
+		log.Println(err)
+	}
+	t.Execute(w, nil)
 }

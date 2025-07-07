@@ -24,7 +24,7 @@ func main() {
 	http.HandleFunc("/api/register", controller.RegisterUserHandler)
 	http.HandleFunc("/api/login", controller.LoginUserHandler) // 登入
 	http.HandleFunc("/dashboard_login", controller.Dashboard)
-
+	http.HandleFunc("/user", controller.Test2)
 	// 静态资源加载
 	fs := http.FileServer(http.Dir("D:\\workspace_go\\GoWeb\\web\\static"))
 	http.Handle("/static/", http.StripPrefix("/static", fs))
