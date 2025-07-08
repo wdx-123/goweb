@@ -5,10 +5,10 @@ import (
 	"GoWeb/internal/web-app/pkg"
 	"GoWeb/internal/web-app/service/AuthService"
 	"encoding/json"
+	"errors"
 	"html/template"
 	"log"
 	"net/http"
-	"time"
 )
 
 // LoginViewHandler 处理页面登入
@@ -21,48 +21,32 @@ func LoginViewHandler(w http.ResponseWriter, r *http.Request) {
 }
 func LoginUserHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("申请了LoginUserHandler函数")
-	// 只允许POST请求
-	if r.Method != http.MethodPost {
-		w.WriteHeader(pkg.StatusCodeMap[405]) // 方法不允许
-		log.Println("方法不允许")
-		SendErrorResponse(w, pkg.StatusCodeMap[405], "方法不允许")
-		return
-	}
+	// 只允许POST请求，这个已在路由层保证
 	var loginReq model.LoginReq
-
 	// 解析前端数据
 	if err := json.NewDecoder(r.Body).Decode(&loginReq); err != nil {
 		w.WriteHeader(pkg.StatusCodeMap[400]) // 参数错误
-		log.Println("400：参数错误")
-		SendErrorResponse(w, pkg.StatusCodeMap[400], "400：参数错误")
+		log.Println("无效请求数据，解析失败")
+		SendErrorResponse(w, pkg.StatusCodeMap[400], "无效请求数据，解析失败")
 		return
 	}
 
-	// 调用这里的函数
-	if err := AuthService.LoginDetection(loginReq); err != nil {
-		w.WriteHeader(pkg.StatusCodeMap[400])
-		log.Println("用户不存在或密码不匹配")
-		SendErrorResponse(w, pkg.StatusCodeMap[400], "400:用户不存在或密码不匹配")
+	// 认证服务调用
+	if err := AuthService.LoginDetection(loginReq); err != nil { // 错误比较，分类返回
+		switch {
+		case errors.Is(err, pkg.ErrUserNotFound):
+			SendErrorResponse(w, pkg.StatusCodeMap[400], "用户不存在")
+		case errors.Is(err, pkg.ErrPasswordMismatch):
+			SendErrorResponse(w, pkg.StatusCodeMap[404], "密码错误")
+		default:
+			SendErrorResponse(w, pkg.StatusCodeMap[500], "服务器内部错误")
+		}
 		return
 	}
+	setSessionCookie(w, loginReq.Username, loginReq.RememberMe)
 
-	// 设置cookie，登入成功由于后期身份认证
-	Cookie := &http.Cookie{
-		Name:     "user-session",    // cookie名称
-		Value:    loginReq.Username, // 存储名称
-		Path:     "/",               // 全站通用
-		HttpOnly: true,
-		Secure:   false,
-	}
-
-	// 勾选"记住我",设置7天
-	if loginReq.RememberMe {
-		Cookie.Expires = time.Now().Add(7 * 24 * time.Hour) // 7天后过期
-		Cookie.MaxAge = 7 * 24 * 3600
-	}
-	http.SetCookie(w, Cookie)
 	// 返回成功响应
-	SendSuccessResponse(w, "登入成功")
+	SendSuccessResponse(w, loginReq.Username+"登入成功")
 }
 
 func Dashboard(w http.ResponseWriter, r *http.Request) {
@@ -85,7 +69,7 @@ func Dashboard(w http.ResponseWriter, r *http.Request) {
 	//`))
 	t.Execute(w, nil)
 }
-func Test2(w http.ResponseWriter, r *http.Request) {
+func UserViewHandler(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("internal/web-app/view/user.html")
 	if err != nil {
 		log.Println(err)

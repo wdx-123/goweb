@@ -57,7 +57,7 @@ function handleReister() {
     }
 
     // 发送真实 AJAX 请求
-    fetch('/api/register', {
+    fetch('/api/users', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

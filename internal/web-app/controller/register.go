@@ -5,6 +5,7 @@ import (
 	"GoWeb/internal/web-app/pkg"
 	"GoWeb/internal/web-app/service/AuthService"
 	"encoding/json"
+	"errors"
 	"html/template"
 	"log"
 	"net/http"
@@ -27,15 +28,21 @@ func RegisterUserHandler(w http.ResponseWriter, r *http.Request) {
 	// 获取 密码
 	var mod model.RegisterReq
 	if err := json.NewDecoder(r.Body).Decode(&mod); err != nil {
-		// 具体调用
-		SendErrorResponse(w, pkg.StatusCodeMap[409], "后端json解析失败")
+		log.Println("无效请求数据")
+		SendErrorResponse(w, pkg.StatusCodeMap[409], "无效请求数据")
 	}
 	// 调用函数 service,确定后，调用dao层，否则返回失败
-	err := AuthService.Register(mod)
-	if err != nil {
-		log.Println(err.Error())
-		SendErrorResponse(w, pkg.StatusCodeMap[501], err.Error())
-	} else {
-		SendSuccessResponse(w, "注册成功，本程序欢迎您")
+	if err := AuthService.Register(mod); err != nil {
+		switch {
+		case errors.Is(err, pkg.ErrUserExists):
+			SendErrorResponse(w, pkg.StatusCodeMap[400], "用户存在")
+		case errors.Is(err, pkg.ErrPasswordMismatch):
+			SendErrorResponse(w, pkg.StatusCodeMap[400], "用户密码错误")
+		default:
+			SendErrorResponse(w, pkg.StatusCodeMap[500], "注册失败")
+		}
+		return
 	}
+	SendSuccessResponse(w, "注册成功，本程序欢迎您")
+
 }

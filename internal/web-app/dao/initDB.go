@@ -5,13 +5,17 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 	"log"
+	"sync"
 )
 
 var DB *sqlx.DB
+var DBmutex sync.Mutex
 
 // InitDB 初始化数据库
 // sqlx对操作数据库，进行功能增强
 func InitDB(dsn string) error {
+	DBmutex.Lock()
+	defer DBmutex.Unlock()
 	var err error
 	DB, err = sqlx.Open("mysql", dsn)
 	if err != nil {

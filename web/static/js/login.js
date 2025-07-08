@@ -54,7 +54,7 @@ document.getElementById('loginForm').addEventListener('submit',  async function 
         // 发送ajax请求到后端 /login接口
         try {
            // todo
-            const response = await fetch('/api/login',{ // 请求页面
+            const response = await fetch('/api/sessions',{ // 请求页面
                 method:'POST', // 登入采用POST更加安全
                 headers:{
                     'Content-Type':'application/json', // 告诉后端数据格式是json

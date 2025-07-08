@@ -10,10 +10,10 @@ var StatusCodeMap = map[int]int{
 
 	// 客户端错误类
 	400: http.StatusBadRequest,         // 请求参数错误
-	401: http.StatusUnauthorized,       // 未授权（需要登录）
+	401: http.StatusUnauthorized,       // 未授权（需要登录、密码错误）
 	402: http.StatusPaymentRequired,    // 付费请求（电商场景）
 	403: http.StatusForbidden,          // 禁止访问（权限不足）
-	404: http.StatusNotFound,           // 资源不存在
+	404: http.StatusNotFound,           // 资源不存在、用户不存在
 	405: http.StatusMethodNotAllowed,   // 方法不允许
 	409: http.StatusConflict,           // 资源冲突（如用户名重复）
 	412: http.StatusPreconditionFailed, // 前提条件失败

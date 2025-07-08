@@ -7,6 +7,8 @@ import (
 )
 
 func CreateUser(user model.User) error {
+	DBmutex.Lock()
+	defer DBmutex.Unlock()
 	query := `
 		insert into user (username,password,role,created_at) 
 		values (?,?,?,?)
