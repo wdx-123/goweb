@@ -1,7 +1,6 @@
-package controller
+package pkg
 
 import (
-	"GoWeb/internal/web-app/pkg"
 	"encoding/json"
 	"net/http"
 	"time"
@@ -16,13 +15,13 @@ func SendErrorResponse(w http.ResponseWriter, code int, msg string) { // 寄送�
 }
 
 func SendSuccessResponse(w http.ResponseWriter, msg string) { // 寄送正确信息
-	w.WriteHeader(pkg.StatusCodeMap[200])
+	w.WriteHeader(StatusCodeMap[200])
 	json.NewEncoder(w).Encode(map[string]interface{}{ // map天然适配转化为json
 		"code":  0,
 		"error": msg,
 	})
 }
-func setSessionCookie(w http.ResponseWriter, username string, remeberMe bool) {
+func SetSessionCookie(w http.ResponseWriter, username string, remeberMe bool) {
 	// 设置cookie，登入成功用于 后期身份认证
 	Cookie := &http.Cookie{
 		Name:     "user-session", // cookie名称

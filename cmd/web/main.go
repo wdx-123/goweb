@@ -2,6 +2,9 @@ package main
 
 import (
 	"GoWeb/internal/web-app/controller"
+	"GoWeb/internal/web-app/dao"
+	"GoWeb/internal/web-app/middleware"
+	"GoWeb/internal/web-app/pkg"
 	"fmt"
 	"github.com/gorilla/mux"
 	"log"
@@ -10,7 +13,14 @@ import (
 
 func main() {
 	fmt.Println("项目开始！")
-
+	// 连接数据库
+	err := dao.InitDB("root:1234@tcp(localhost:3306)/goweb?parseTime=true&loc=Local")
+	if err != nil {
+		log.Println("数据库打开失败：", err)
+	} else {
+		log.Println("打开数据库")
+	}
+	defer dao.DB.Close()
 	// 使用gorilla/mux创建路由器
 	r := mux.NewRouter()
 	// ================ 页面路由 ================
@@ -20,12 +30,14 @@ func main() {
 	r.HandleFunc("/user", controller.UserViewHandler).Methods("GET")         // 用户界面
 
 	// ================ API路由 ================
-	apiRouter := r.PathPrefix("/api").Subrouter()                                   // 根据前缀切割出了一个子路由
+	apiRouter := r.PathPrefix("/api").Subrouter() // 根据前缀切割出了一个子路由
+	apiRouter.Use(middleware.AuthMiddleware)      // 中间件，验证安全
+
 	apiRouter.HandleFunc("/users", controller.RegisterUserHandler).Methods("POST")  // 创建用户
 	apiRouter.HandleFunc("/users/{id}", controller.LoginUserHandler).Methods("GET") // 获取单个用户，带实现
 	// 会话资源（登录/登出）--我推测，需要依靠中间件
 	apiRouter.HandleFunc("/sessions", controller.LoginUserHandler).Methods("POST") // 创建会话（登录）
-	apiRouter.HandleFunc("/sessions", controller.LogoutHandler).Methods("DELETE")  // 删除（登出）
+	apiRouter.HandleFunc("/sessions", pkg.LogoutHandler).Methods("DELETE")         // 删除（登出）
 
 	// 静态资源加载
 	fs := http.FileServer(http.Dir("D:\\workspace_go\\GoWeb\\web\\static"))

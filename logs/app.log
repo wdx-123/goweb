@@ -200,3 +200,47 @@
 2025/07/08 10:38:55 initDB.go:26: 数据库连接成功
 2025/07/08 10:39:02 login.go:23: 申请了LoginUserHandler函数
 2025/07/08 10:39:02 cookie.go:491: net/http: invalid byte 'ç' in Cookie.Value; dropping invalid bytes
+2025/07/08 11:26:54 initDB.go:30: 数据库连接成功
+2025/07/08 11:27:51 login.go:23: 申请了LoginUserHandler函数
+2025/07/08 11:27:51 findUser.go:25: FindUser包出错 sql: database is closed
+2025/07/08 11:27:51 login.go:16: 登入界面：不存在该用户
+2025/07/08 11:27:54 login.go:23: 申请了LoginUserHandler函数
+2025/07/08 11:27:54 findUser.go:25: FindUser包出错 sql: database is closed
+2025/07/08 11:27:54 login.go:16: 登入界面：不存在该用户
+2025/07/08 11:27:54 login.go:23: 申请了LoginUserHandler函数
+2025/07/08 11:27:54 findUser.go:25: FindUser包出错 sql: database is closed
+2025/07/08 11:27:54 login.go:16: 登入界面：不存在该用户
+2025/07/08 11:27:54 login.go:23: 申请了LoginUserHandler函数
+2025/07/08 11:27:54 findUser.go:25: FindUser包出错 sql: database is closed
+2025/07/08 11:27:54 login.go:16: 登入界面：不存在该用户
+2025/07/08 11:27:55 login.go:23: 申请了LoginUserHandler函数
+2025/07/08 11:27:55 findUser.go:25: FindUser包出错 sql: database is closed
+2025/07/08 11:27:55 login.go:16: 登入界面：不存在该用户
+2025/07/08 11:27:55 login.go:23: 申请了LoginUserHandler函数
+2025/07/08 11:27:55 findUser.go:25: FindUser包出错 sql: database is closed
+2025/07/08 11:27:55 login.go:16: 登入界面：不存在该用户
+2025/07/08 11:27:56 login.go:23: 申请了LoginUserHandler函数
+2025/07/08 11:27:56 findUser.go:25: FindUser包出错 sql: database is closed
+2025/07/08 11:27:56 login.go:16: 登入界面：不存在该用户
+2025/07/08 11:27:56 login.go:23: 申请了LoginUserHandler函数
+2025/07/08 11:27:56 findUser.go:25: FindUser包出错 sql: database is closed
+2025/07/08 11:27:56 login.go:16: 登入界面：不存在该用户
+2025/07/08 11:31:33 initDB.go:30: 数据库连接成功
+2025/07/08 11:31:33 init.go:38: 打开数据库
+2025/07/08 14:29:52 initDB.go:30: 数据库连接成功
+2025/07/08 14:29:52 init.go:38: 打开数据库
+2025/07/08 14:30:14 login.go:23: 申请了LoginUserHandler函数
+2025/07/08 14:30:14 findUser.go:25: FindUser包出错 sql: database is closed
+2025/07/08 14:30:14 login.go:16: 登入界面：不存在该用户
+2025/07/08 14:31:26 findUser.go:25: FindUser包出错 sql: database is closed
+2025/07/08 14:31:26 createUser.go:18: dao中createUser包调用失败： sql: database is closed
+2025/07/08 14:31:49 findUser.go:25: FindUser包出错 sql: database is closed
+2025/07/08 14:31:49 createUser.go:18: dao中createUser包调用失败： sql: database is closed
+2025/07/08 14:46:45 initDB.go:30: 数据库连接成功
+2025/07/08 14:46:45 main.go:19: 打开数据库
+2025/07/08 14:46:51 login.go:23: 申请了LoginUserHandler函数
+2025/07/08 14:46:51 cookie.go:491: net/http: invalid byte 'ç' in Cookie.Value; dropping invalid bytes
+2025/07/08 16:38:12 initDB.go:30: 数据库连接成功
+2025/07/08 16:38:12 main.go:21: 打开数据库
+2025/07/08 16:52:01 initDB.go:30: 数据库连接成功
+2025/07/08 16:52:01 main.go:21: 打开数据库

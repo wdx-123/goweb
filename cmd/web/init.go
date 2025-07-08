@@ -1,8 +1,6 @@
 package main
 
 import (
-	"GoWeb/internal/web-app/dao"
-	"fmt"
 	"log"
 	"os"
 )
@@ -29,12 +27,4 @@ func init() {
 	}
 	// 输出
 	log.SetOutput(logFile)
-}
-func init() {
-	// 连接数据库
-	err := dao.InitDB("root:1234@tcp(localhost:3306)/goweb?parseTime=true&loc=Local")
-	if err != nil {
-		fmt.Println("数据库打开失败：", err)
-	}
-	defer dao.DB.Close()
 }

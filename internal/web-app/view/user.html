@@ -8,88 +8,93 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Nunito:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/static/css/user.css">
+    <!-- 替换 Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.css">
+    <!-- 替换 Particles.js CDN -->
+    <script src="https://unpkg.com/particles.js@2.0.0/particles.min.js"></script>
 </head>
 <body>
 <div id="particles-js"></div>
 
-<nav class="navbar-tech">
-    <div class="container d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
-            <a href="/" class="me-4 text-dark"><i class="bi bi-arrow-left-circle me-1"></i>返回主页</a>
-            <h3 class="navbar-title">用户管理</h3>
+<nav class="navbar-tech">  <!-- 导航栏容器，class="navbar-tech"是自定义样式（让导航栏好看） -->
+    <div class="container d-flex justify-content-between align-items-center">  <!-- 容器：用Bootstrap的flex布局，让内容左右对齐、垂直居中 -->
+        <div class="d-flex align-items-center">  <!-- 左侧内容：flex布局让元素横向排列 -->
+            <a href="/" class="me-4 text-dark">  <!-- 链接：点击跳回主页（/是首页路径）；me-4是右边距，text-dark是文字黑色 -->
+                <i class="bi bi-arrow-left-circle me-1"></i>返回主页  <!-- 图标：bi-arrow-left-circle是返回箭头图标，me-1是图标和文字的间距 -->
+            </a>
+            <h3 class="navbar-title">用户管理</h3>  <!-- 页面标题：显示“用户管理” -->
         </div>
-        <div class="d-flex align-items-center">
-                <span class="user-info text-dark me-4">
-                    <i class="bi bi-person-circle me-1"></i>{{.Username}}
-                    {{if .IsAdmin}}<span class="admin-badge">管理员</span>{{end}}
+
+        <div class="d-flex align-items-center">  <!-- 右侧内容：flex布局横向排列 -->
+            <span class="user-info text-dark me-4">  <!-- 显示用户信息，me-4是右边距 -->
+                    <i class="bi bi-person-circle me-1"></i>{{.Username}}  <!-- 图标：用户头像图标；{{.Username}}是后端传的用户名（如“张三”） -->
+                    {{if .IsAdmin}}<span class="admin-badge">管理员</span>{{end}}  <!-- 条件判断：如果是管理员（后端传的.IsAdmin为true），显示“管理员”徽章 -->
                 </span>
-            <a href="/logout" class="logout-btn">
-                <i class="bi bi-power text-danger me-1"></i>退出
+            <a href="/logout" class="logout-btn">  <!-- 退出登录链接：点击跳转到/logout路径（后端处理退出） -->
+                <i class="bi bi-power text-danger me-1"></i>退出  <!-- 图标：电源图标，text-danger是红色 -->
             </a>
         </div>
     </div>
 </nav>
 
-<div class="main-container">
-    {{if .IsAdmin}}
-    <div class="admin-actions">
-        <button class="btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
-            <i class="bi bi-plus-circle me-1"></i> 添加用户
-            <div class="btn-ripple"></div>
-        </button>
-    </div>
-    {{end}}
+<div class="table-container">
+    <table class="table-glass table-hover">  <!-- 表格：table-glass是自定义半透明样式；table-hover是鼠标移到行上会变色 -->
+        <thead>  <!-- 表格头部（标题行） -->
+        <tr>  <!-- 行 -->
+            <th>ID</th>  <!-- 列标题：用户ID -->
+            <th>用户名</th>  <!-- 列标题：用户名 -->
+            <th>角色</th>  <!-- 列标题：用户角色（管理员/普通用户） -->
+            <th>注册时间</th>  <!-- 列标题：注册时间 -->
+            {{if .IsAdmin}}<th>操作</th>{{end}}  <!-- 条件：管理员多一列“操作”（编辑/删除） -->
+        </tr>
+        </thead>
 
-    <div class="table-container">
-        <table class="table-glass table-hover">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>用户名</th>
-                <th>角色</th>
-                <th>注册时间</th>
-                {{if .IsAdmin}}<th>操作</th>{{end}}
-            </tr>
-            </thead>
-            <tbody>
-            {{range .Users}}
-            <tr class="table-row-hover">
-                <td>{{.ID}}</td>
-                <td>{{.Username}}</td>
-                <td>
-                    {{if .IsAdmin}}
-                    <span class="badge badge-admin">管理员</span>
-                    {{else}}
-                    <span class="badge badge-user">普通用户</span>
-                    {{end}}
-                </td>
-                <td>{{.RegTime.Format "2006-01-02"}}</td>
-                {{if $.IsAdmin}}
-                <td>
-                    <div class="btn-group">
-                        <button class="btn-warning" onclick="openEditModal({{.ID}}, '{{.Username}}', {{.IsAdmin}})">
-                            <i class="bi bi-pencil me-1"></i> 编辑
-                            <div class="btn-ripple"></div>
-                        </button>
-                        <button class="btn-danger" onclick="deleteUser({{.ID}}, '{{.Username}}')">
-                            <i class="bi bi-trash me-1"></i> 删除
-                            <div class="btn-ripple"></div>
-                        </button>
-                    </div>
-                </td>
+        <tbody>  <!-- 表格内容（数据行） -->
+        {{range .Users}}  <!-- 循环渲染：后端传的.Users是用户列表，遍历每个用户 -->
+        <tr class="table-row-hover">  <!-- 表格行，鼠标移上去有样式变化 -->
+            <td>{{.ID}}</td>  <!-- 显示用户ID（后端每个用户的.ID） -->
+            <td>{{.Username}}</td>  <!-- 显示用户名（后端每个用户的.Username） -->
+            <td>  <!-- 显示角色 -->
+                {{if .IsAdmin}}  <!-- 条件：如果该用户是管理员 -->
+                <span class="badge badge-admin">管理员</span>  <!-- 显示“管理员”徽章（红色或特殊样式） -->
+                {{else}}  <!-- 否则是普通用户 -->
+                <span class="badge badge-user">普通用户</span>  <!-- 显示“普通用户”徽章（蓝色或普通样式） -->
                 {{end}}
-            </tr>
-            {{else}}
-            <tr>
-                <td colspan="{{if .IsAdmin}}5{{else}}4{{end}}" class="text-center text-secondary">
-                    暂无用户数据
-                </td>
-            </tr>
-            {{end}}
-            </tbody>
-        </table>
-    </div>
+            </td>
+            <td>{{.RegTime.Format "2006-01-02"}}</td>  <!-- 显示注册时间：后端传的.RegTime是时间，格式化成年-月-日（如2025-07-08） -->
+
+            {{if $.IsAdmin}}  <!-- 条件：只有管理员能看到操作列（$.IsAdmin指的是当前登录用户是否为管理员） -->
+            <td>  <!-- 操作列 -->
+                <div class="btn-group">  <!-- 按钮组，让按钮并排显示 -->
+                    <button class="btn-warning" onclick="openEditModal({{.ID}}, {{.Username}}, {{.IsAdmin}})">  <!-- 点击触发JS函数：打开编辑弹窗，传当前用户的ID、用户名、是否管理员 -->
+                    <i class="bi bi-pencil me-1"></i> 编辑  <!-- 图标：铅笔图标 -->
+                    <div class="btn-ripple"></div>  <!-- 波纹效果容器 -->
+                    </button>
+                    <button class="btn-danger" onclick="deleteUser({{.ID}}, {{.Username}})">  <!-- 点击触发JS函数：删除用户，传ID和用户名 -->
+                    <i class="bi bi-trash me-1"></i> 删除  <!-- 图标：垃圾桶图标 -->
+                    <div class="btn-ripple"></div>  <!-- 波纹效果容器 -->
+                    </button>
+                </div>
+            </td>
+            {{end}}  <!-- 结束管理员操作列条件 -->
+        </tr>
+        {{else}}  <!-- 如果没有用户数据（.Users为空） -->
+        <tr>  <!-- 空数据行 -->
+            <td colspan="{{if .IsAdmin}}5{{else}}4{{end}}" class="text-center text-secondary">  <!-- 合并列：管理员时合并5列，普通用户合并4列；文字居中、灰色 -->
+                暂无用户数据  <!-- 显示提示文字 -->
+            </td>
+        </tr>
+        {{end}}  <!-- 结束用户列表循环 -->
+        </tbody>
+
+
+
+    </table>
+
 </div>
+
+
+
 
 {{if .IsAdmin}}
 <div class="modal fade" id="addUserModal" tabindex="-1">

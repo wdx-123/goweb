@@ -27,7 +27,7 @@ func LoginUserHandler(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&loginReq); err != nil {
 		w.WriteHeader(pkg.StatusCodeMap[400]) // 参数错误
 		log.Println("无效请求数据，解析失败")
-		SendErrorResponse(w, pkg.StatusCodeMap[400], "无效请求数据，解析失败")
+		pkg.SendErrorResponse(w, pkg.StatusCodeMap[400], "无效请求数据，解析失败")
 		return
 	}
 
@@ -35,18 +35,18 @@ func LoginUserHandler(w http.ResponseWriter, r *http.Request) {
 	if err := AuthService.LoginDetection(loginReq); err != nil { // 错误比较，分类返回
 		switch {
 		case errors.Is(err, pkg.ErrUserNotFound):
-			SendErrorResponse(w, pkg.StatusCodeMap[400], "用户不存在")
+			pkg.SendErrorResponse(w, pkg.StatusCodeMap[400], "用户不存在")
 		case errors.Is(err, pkg.ErrPasswordMismatch):
-			SendErrorResponse(w, pkg.StatusCodeMap[404], "密码错误")
+			pkg.SendErrorResponse(w, pkg.StatusCodeMap[404], "密码错误")
 		default:
-			SendErrorResponse(w, pkg.StatusCodeMap[500], "服务器内部错误")
+			pkg.SendErrorResponse(w, pkg.StatusCodeMap[500], "服务器内部错误")
 		}
 		return
 	}
-	setSessionCookie(w, loginReq.Username, loginReq.RememberMe)
+	pkg.SetSessionCookie(w, loginReq.Username, loginReq.RememberMe)
 
 	// 返回成功响应
-	SendSuccessResponse(w, loginReq.Username+"登入成功")
+	pkg.SendSuccessResponse(w, loginReq.Username+"登入成功")
 }
 
 func Dashboard(w http.ResponseWriter, r *http.Request) {

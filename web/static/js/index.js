@@ -1,7 +1,8 @@
+// 三个交互效果
 document.addEventListener('DOMContentLoaded', function() {
-    initParticles();
-    initTypewriter();
-    bindBtnRipple();
+    initParticles();  // 粒子背景动画
+    initTypewriter(); // 卡片描述
+    bindBtnRipple();  // 按钮点击波纹效果
 });
 
 // 粒子背景（颜色更柔和）
@@ -9,7 +10,7 @@ function initParticles() {
     particlesJS('particles-js', {
         "particles": {
             "number": { "value": 50, "density": { "enable": true, "value_area": 800 } },
-            "color": { "value": "#4299e1" }, // 柔和蓝色粒子
+            "color": { "value": '#4299e1' }, // 柔和蓝色粒子
             "shape": { "type": "circle" },
             "opacity": {
                 "value": 0.3, // 降低透明度避免干扰
