@@ -28,16 +28,16 @@ func main() {
 	r.HandleFunc("/register", controller.RegisterViewHandler).Methods("GET") // 注册界面
 	r.HandleFunc("/dashboard_login", controller.Dashboard).Methods("GET")    // 登入后的主界面
 	r.HandleFunc("/user", controller.UserViewHandler).Methods("GET")         // 用户界面
-
+	r.HandleFunc("/sessions", controller.LoginUserHandler).Methods("POST")   // 创建会话（登录）/ 登入不需要中间件 / 也不能用中间件
 	// ================ API路由 ================
 	apiRouter := r.PathPrefix("/api").Subrouter() // 根据前缀切割出了一个子路由
 	apiRouter.Use(middleware.AuthMiddleware)      // 中间件，验证安全
 
-	apiRouter.HandleFunc("/users", controller.RegisterUserHandler).Methods("POST")  // 创建用户
-	apiRouter.HandleFunc("/users/{id}", controller.LoginUserHandler).Methods("GET") // 获取单个用户，带实现
+	apiRouter.HandleFunc("/users", controller.RegisterUserHandler).Methods("POST") // 创建用户
+	apiRouter.HandleFunc("/users", controller.UserView).Methods("GET")             // 获取用户列表
+
 	// 会话资源（登录/登出）--我推测，需要依靠中间件
-	apiRouter.HandleFunc("/sessions", controller.LoginUserHandler).Methods("POST") // 创建会话（登录）
-	apiRouter.HandleFunc("/sessions", pkg.LogoutHandler).Methods("DELETE")         // 删除（登出）
+	apiRouter.HandleFunc("/sessions", pkg.LogoutHandler).Methods("DELETE") // 删除（登出）
 
 	// 静态资源加载
 	fs := http.FileServer(http.Dir("D:\\workspace_go\\GoWeb\\web\\static"))
@@ -46,7 +46,6 @@ func main() {
 	// 一旦，有/static/路由的到来，就会触发监听静态资源的这个路由。
 
 	fmt.Printf("http://localhost:8000/login")
-
 	// 开始监听
 	err = http.ListenAndServe(":8000", r) // 在这里监听我新建的第三方路由，gorilla
 	if err != nil {

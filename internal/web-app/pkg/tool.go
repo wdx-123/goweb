@@ -1,7 +1,9 @@
 package pkg
 
 import (
+	"encoding/base64"
 	"encoding/json"
+	"log"
 	"net/http"
 	"time"
 )
@@ -22,6 +24,8 @@ func SendSuccessResponse(w http.ResponseWriter, msg string) { // 寄送正确信
 	})
 }
 func SetSessionCookie(w http.ResponseWriter, username string, remeberMe bool) {
+	log.Println("用户：", username, "申请登入")
+	username = base64.URLEncoding.EncodeToString([]byte(username)) // cookie-value仅支持ascii储存
 	// 设置cookie，登入成功用于 后期身份认证
 	Cookie := &http.Cookie{
 		Name:     "user-session", // cookie名称

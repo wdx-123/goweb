@@ -15,7 +15,6 @@
 </head>
 <body>
 <div id="particles-js"></div>
-
 <nav class="navbar-tech">  <!-- 导航栏容器，class="navbar-tech"是自定义样式（让导航栏好看） -->
     <div class="container d-flex justify-content-between align-items-center">  <!-- 容器：用Bootstrap的flex布局，让内容左右对齐、垂直居中 -->
         <div class="d-flex align-items-center">  <!-- 左侧内容：flex布局让元素横向排列 -->
@@ -50,44 +49,45 @@
         </thead>
 
         <tbody>  <!-- 表格内容（数据行） -->
+        {{if .Users}}  <!-- 检查是否有用户数据 -->
         {{range .Users}}  <!-- 循环渲染：后端传的.Users是用户列表，遍历每个用户 -->
         <tr class="table-row-hover">  <!-- 表格行，鼠标移上去有样式变化 -->
             <td>{{.ID}}</td>  <!-- 显示用户ID（后端每个用户的.ID） -->
             <td>{{.Username}}</td>  <!-- 显示用户名（后端每个用户的.Username） -->
             <td>  <!-- 显示角色 -->
-                {{if .IsAdmin}}  <!-- 条件：如果该用户是管理员 -->
+                {{if eq .Role "0"}}  <!-- 条件：如果该用户的角色是管理员 -->
                 <span class="badge badge-admin">管理员</span>  <!-- 显示“管理员”徽章（红色或特殊样式） -->
                 {{else}}  <!-- 否则是普通用户 -->
                 <span class="badge badge-user">普通用户</span>  <!-- 显示“普通用户”徽章（蓝色或普通样式） -->
                 {{end}}
             </td>
-            <td>{{.RegTime.Format "2006-01-02"}}</td>  <!-- 显示注册时间：后端传的.RegTime是时间，格式化成年-月-日（如2025-07-08） -->
+            <td>{{.CreatedAt.Format "2006-01-02"}}</td>  <!-- 显示注册时间：格式化成年-月-日（如2025-07-08） -->
 
             {{if $.IsAdmin}}  <!-- 条件：只有管理员能看到操作列（$.IsAdmin指的是当前登录用户是否为管理员） -->
             <td>  <!-- 操作列 -->
                 <div class="btn-group">  <!-- 按钮组，让按钮并排显示 -->
-                    <button class="btn-warning" onclick="openEditModal({{.ID}}, {{.Username}}, {{.IsAdmin}})">  <!-- 点击触发JS函数：打开编辑弹窗，传当前用户的ID、用户名、是否管理员 -->
-                    <i class="bi bi-pencil me-1"></i> 编辑  <!-- 图标：铅笔图标 -->
-                    <div class="btn-ripple"></div>  <!-- 波纹效果容器 -->
+                    <!-- 确保波纹元素在按钮内容之后 -->
+                    <button class="btn-warning" onclick="test(); openEditModal({{.ID}}, '{{.Username}}', '{{.Role}}')">
+                        <i class="bi bi-pencil me-1"></i> 编辑
+                        <div class="btn-ripple"></div> <!-- 波纹元素放在最后 -->
                     </button>
-                    <button class="btn-danger" onclick="deleteUser({{.ID}}, {{.Username}})">  <!-- 点击触发JS函数：删除用户，传ID和用户名 -->
-                    <i class="bi bi-trash me-1"></i> 删除  <!-- 图标：垃圾桶图标 -->
-                    <div class="btn-ripple"></div>  <!-- 波纹效果容器 -->
+                    <button class="btn-danger" onclick="deleteUser({{.ID}}, '{{.Username}}')">  <!-- 点击触发JS函数：删除用户，传ID和用户名 -->
+                        <i class="bi bi-trash me-1"></i> 删除  <!-- 图标：垃圾桶图标 -->
+                        <div class="btn-ripple"></div>  <!-- 波纹效果容器 -->
                     </button>
                 </div>
             </td>
             {{end}}  <!-- 结束管理员操作列条件 -->
         </tr>
+        {{end}}  <!-- 结束用户列表循环 -->
         {{else}}  <!-- 如果没有用户数据（.Users为空） -->
         <tr>  <!-- 空数据行 -->
             <td colspan="{{if .IsAdmin}}5{{else}}4{{end}}" class="text-center text-secondary">  <!-- 合并列：管理员时合并5列，普通用户合并4列；文字居中、灰色 -->
                 暂无用户数据  <!-- 显示提示文字 -->
             </td>
         </tr>
-        {{end}}  <!-- 结束用户列表循环 -->
+        {{end}}
         </tbody>
-
-
 
     </table>
 

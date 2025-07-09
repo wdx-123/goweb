@@ -54,19 +54,7 @@ func Dashboard(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println(err)
 	}
-	// 检查Cookie（验证是否登录）
-	//cookie, err := r.Cookie("user_session")
-	//if err != nil {
-	//	// 没有Cookie：未登录，跳回登录页
-	//	http.Redirect(w, r, "/static/index.html", http.StatusFound)
-	//	return
-	//}
-	//
-	//// 有Cookie：显示登录成功页面
-	//w.Write([]byte(`
-	//    <h1>欢迎回来，` + cookie.Value + `！</h1>
-	//    <a href="/logout">退出登录</a>
-	//`))
+
 	t.Execute(w, nil)
 }
 func UserViewHandler(w http.ResponseWriter, r *http.Request) {

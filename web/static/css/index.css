@@ -43,6 +43,15 @@ body {
     box-shadow: 0 2px 15px rgba(66, 153, 225, 0.1);
 }
 
+.navbar-tech .container {
+    /* 确保容器有足够的宽度 */
+    width: 100%;
+    max-width: 1400px; /* 增加最大宽度 */
+    padding: 0 20px; /* 增加左右内边距 */
+    /* 让元素在空间不足时换行 */
+    flex-wrap: wrap;
+}
+
 .navbar-title {
     font-size: 1.6rem;
     font-weight: 700;
@@ -222,6 +231,17 @@ body {
     .service-card, .user-card {
         width: 100%;
         min-height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-tech .container {
+        flex-direction: column; /* 垂直排列元素 */
+        align-items: flex-start; /* 左对齐元素 */
+    }
+
+    .navbar-tech .d-flex {
+        margin-top: 10px; /* 增加元素之间的间距 */
     }
 }
 
