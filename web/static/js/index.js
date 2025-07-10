@@ -74,3 +74,35 @@ function bindBtnRipple() {
         });
     });
 }
+
+
+async function logoutAndRedirect() {
+    try {
+        // 显示加载状态（可选）
+        const logoutBtn = document.querySelector('.logout-btn');
+        if (logoutBtn) {
+            logoutBtn.innerHTML = '<i class="bi bi-circle-fill text-danger me-1"></i>退出中...';
+            logoutBtn.disabled = true;
+        }
+        // 调用退出登录 API
+        const response = await fetch('/api/sessions', {
+            method: 'DELETE', // 假设退出登录使用 DELETE 方法
+            credentials: 'include', // 包含 cookie 等凭证
+        });
+        if (!response.ok) {
+            throw new Error(`退出登录失败: ${response.statusText}`);
+        }
+        // 退出成功后重定向到登录页或首页
+        window.location.href = '/login'; // 修改为你想要跳转的路径
+    } catch (error) {
+        console.error('退出登录过程中出错:', error);
+        alert('退出登录失败，请稍后再试');
+
+        // 恢复按钮状态
+        const logoutBtn = document.querySelector('.logout-btn');
+        if (logoutBtn) {
+            logoutBtn.innerHTML = '<i class="bi bi-power text-danger me-1"></i>退出';
+            logoutBtn.disabled = false;
+        }
+    }
+}

@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     initParticles();
     bindBtnRipple();
-    loadUsers();
 });
 
 // 粒子背景（柔和模式）
@@ -51,16 +50,23 @@ function bindBtnRipple() {
 // 加载用户列表
 function loadUsers() {
     fetch('/api/users', {
-        method: 'GET',
-        credentials: 'include'
+        method: 'PUT',
+        credentials: 'include',
     })
         .then(response => {
+            // alert("1111")
             if (!response.ok) {
                 throw response.json();
             }
+            // alert("22")
             return response.json();
         })
-        .then(data => renderUsers(data.users))
+        .then(data => {
+                // alert("3333");
+            renderUsers(data.users);
+            // alert("444")
+        }
+        )
         .catch(error => {
             console.error("加载用户列表失败", error);
             alert("加载用户列表失败，请刷新页面重试");
@@ -76,13 +82,17 @@ function renderUsers(users) {
         tr.className = 'table-row-hover';
 
         // 转换日期格式
-        const regDate = new Date(user.createdAt).toLocaleDateString();
+        const regDate = new Date(user.created_at).toLocaleDateString('zh-CN', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        });
 
         tr.innerHTML = `
             <td>${user.id}</td> 
             <td>${user.username}</td>
             <td>
-                ${user.role === 'admin' ?
+                ${user.role === '0' ?
             '<span class="badge badge-admin">管理员</span>' :
             '<span class="badge badge-user">普通用户</span>'}
             </td>
@@ -105,7 +115,6 @@ function renderUsers(users) {
         tbody.appendChild(tr);
     })
 }
-
 // 删除用户
 function deleteUser(userId) {
     if (!confirm(`确定要删除ID为${userId}的用户吗`)) {
@@ -146,7 +155,7 @@ function submitEditUser() {
     const userId = document.getElementById('editUserId').value;
     const username = document.getElementById('editUsername').value;
     const isAdmin = document.getElementById('editIsAdmin').checked;
-    const role = isAdmin ? 'admin' : 'user';
+    const role = isAdmin ? '0' : '1';
 
     fetch(`/api/users/${userId}`, {
         method: 'PUT',
@@ -159,6 +168,7 @@ function submitEditUser() {
         })
     })
         .then(response => {
+            alert("正在尝试更改")
             if (response.ok) {
                 loadUsers(); // 刷新用户列表
                 // 隐藏模态框
@@ -182,8 +192,7 @@ function submitAddUser() {
     const username = document.getElementById('addUsername').value;
     const password = document.getElementById('addPassword').value;
     const isAdmin = document.getElementById('addIsAdmin').checked;
-    const role = isAdmin ? 'admin' : 'user';
-
+    const role = isAdmin ? '0' : '1';
     fetch('/api/users', {
         method: 'POST',
         headers: {
@@ -212,4 +221,35 @@ function submitAddUser() {
         });
 
     return false; // 阻止表单默认提交
+}
+
+async function logoutAndRedirect() {
+    try {
+        // 显示加载状态（可选）
+        const logoutBtn = document.querySelector('.logout-btn');
+        if (logoutBtn) {
+            logoutBtn.innerHTML = '<i class="bi bi-circle-fill text-danger me-1"></i>退出中...';
+            logoutBtn.disabled = true;
+        }
+        // 调用退出登录 API
+        const response = await fetch('/api/sessions', {
+            method: 'DELETE', // 假设退出登录使用 DELETE 方法
+            credentials: 'include', // 包含 cookie 等凭证
+        });
+        if (!response.ok) {
+            throw new Error(`退出登录失败: ${response.statusText}`);
+        }
+        // 退出成功后重定向到登录页或首页
+        window.location.href = '/login'; // 修改为你想要跳转的路径
+    } catch (error) {
+        console.error('退出登录过程中出错:', error);
+        alert('退出登录失败，请稍后再试');
+
+        // 恢复按钮状态
+        const logoutBtn = document.querySelector('.logout-btn');
+        if (logoutBtn) {
+            logoutBtn.innerHTML = '<i class="bi bi-power text-danger me-1"></i>退出';
+            logoutBtn.disabled = false;
+        }
+    }
 }

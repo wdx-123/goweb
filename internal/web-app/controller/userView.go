@@ -1,10 +1,11 @@
 package controller
 
 import (
-	"GoWeb/internal/web-app/dao"
 	"GoWeb/internal/web-app/model"
 	"GoWeb/internal/web-app/pkg"
-	"encoding/base64"
+	"GoWeb/internal/web-app/service/userOperate"
+	"encoding/json"
+	"errors"
 	"html/template"
 	"log"
 	"net/http"
@@ -12,25 +13,18 @@ import (
 
 func UserView(w http.ResponseWriter, r *http.Request) {
 	// 能来到这里，说明已经经过了中间件验证，身份无须在验证
-	// 首先获取本用户
-	cookie, err := r.Cookie("user-session")
+	user, err := userOperate.GetName(r) // 获取用户身份
 	if err != nil {
-		log.Println("获取cookie错误", err)
-		pkg.SendErrorResponse(w, pkg.StatusCodeMap[401], "获取cookie错误")
-		return
-	}
-	u, err := base64.URLEncoding.DecodeString(cookie.Value)
-	if err != nil {
-		log.Println("cookie-value基于base64编码解析失败: ", err)
-		pkg.SendErrorResponse(w, pkg.StatusCodeMap[500], "cookie-value基于base64编码解析失败")
-		return
-	}
-	username := string(u)
-	// 获取用户名字身份
-	user, err := dao.FindUser(username)
-	if err != nil {
-		log.Println("获取用户基本信息错误", err)
-		pkg.SendErrorResponse(w, pkg.StatusCodeMap[404], "获取用户基本信息错误")
+		switch {
+		case errors.Is(err, pkg.ErrUnauthorized):
+			pkg.SendErrorResponse(w, pkg.StatusCodeMap[401], "获取cookie错误")
+		case errors.Is(err, pkg.ErrMissingParam):
+			pkg.SendErrorResponse(w, pkg.StatusCodeMap[400], "cookie-value基于base64编码解析失败")
+		case errors.Is(err, pkg.ErrUserExists):
+			pkg.SendErrorResponse(w, pkg.StatusCodeMap[404], "获取用户基本信息错误")
+		default:
+			log.Println("未知错误")
+		}
 		return
 	}
 	// 响应后端的数据
@@ -38,22 +32,12 @@ func UserView(w http.ResponseWriter, r *http.Request) {
 		Username: user.Username,
 		IsAdmin:  user.Role == "0",
 	}
-	log.Println("姓名：", user.Username, " 管理员：", user.Role == "0")
-	// 获取用户安全身份的集合
-	var safeUser []model.SafeUser
-	users, err := dao.GetAllUsers()
+	// 装入data，发送至响应体中
+	Data.Users, err = userOperate.GetAllUser()
 	if err != nil {
-		log.Println("获取用户集合错误", err)
 		pkg.SendErrorResponse(w, pkg.StatusCodeMap[404], "获取用户集合错误")
 		return
 	}
-	log.Println("查询人员集合：")
-	for _, u := range users {
-		safeUser = append(safeUser, u.ToSafeUser())
-		log.Println("姓名：", u.ToSafeUser().Username, "创建时间：", u.CreatedAt, " 身份：", u.Role)
-	}
-	// 装入data，发送至响应体中
-	Data.Users = safeUser
 	// 后端响应数据已经准备完毕
 	t, err := template.ParseFiles("internal/web-app/view/user.html")
 	if err != nil {
@@ -67,5 +51,34 @@ func UserView(w http.ResponseWriter, r *http.Request) {
 		pkg.SendErrorResponse(w, pkg.StatusCodeMap[500], "获取用户集合错误")
 		return
 	}
-	//	pkg.SendSuccessResponse(w, "调用成功")
+}
+func UserViewUpdate(w http.ResponseWriter, r *http.Request) {
+	// 能来到这里，说明已经经过了中间件验证，身份无须在验证
+	user, err := userOperate.GetName(r) // 获取用户身份
+	if err != nil {
+		switch {
+		case errors.Is(err, pkg.ErrUnauthorized):
+			pkg.SendErrorResponse(w, pkg.StatusCodeMap[401], "获取cookie错误")
+		case errors.Is(err, pkg.ErrMissingParam):
+			pkg.SendErrorResponse(w, pkg.StatusCodeMap[400], "cookie-value基于base64编码解析失败")
+		case errors.Is(err, pkg.ErrUserExists):
+			pkg.SendErrorResponse(w, pkg.StatusCodeMap[404], "获取用户基本信息错误")
+		default:
+			log.Println("未知错误")
+		}
+		return
+	}
+	// 响应后端的数据
+	Data := model.UserProfile{
+		Username: user.Username,
+		IsAdmin:  user.Role == "0",
+	}
+	// 装入data，发送至响应体中
+	Data.Users, err = userOperate.GetAllUser()
+	err = json.NewEncoder(w).Encode(Data)
+	if err != nil {
+		pkg.SendErrorResponse(w, pkg.StatusCodeMap[404], "获取用户集合错误")
+		return
+	}
+
 }

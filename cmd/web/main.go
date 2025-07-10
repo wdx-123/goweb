@@ -36,8 +36,9 @@ func main() {
 
 	apiRouter.HandleFunc("/users", CUserOperate.CreateUserHandler).Methods("POST")        // 创建用户
 	apiRouter.HandleFunc("/users", controller.UserView).Methods("GET")                    // 获取用户列表
+	apiRouter.HandleFunc("/users", controller.UserViewUpdate).Methods("PUT")              // 更新用户列表
 	apiRouter.HandleFunc("/users/{id}", CUserOperate.DeleteUserHandler).Methods("DELETE") // 删除用户
-	apiRouter.HandleFunc("/users/{id}", CUserOperate.UpdateUserHandler).Methods("UPDATE") // 更新用户
+	apiRouter.HandleFunc("/users/{id}", CUserOperate.UpdateUserHandler).Methods("PUT")    // 更新用户
 	// 会话资源（登录/登出）--我推测，需要依靠中间件
 	apiRouter.HandleFunc("/sessions", pkg.LogoutHandler).Methods("DELETE") // 删除（登出）
 
@@ -46,7 +47,6 @@ func main() {
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static", fs))
 	// 通过第三方路由实现静态资源加载
 	// 一旦，有/static/路由的到来，就会触发监听静态资源的这个路由。
-
 	fmt.Printf("http://localhost:8000/login")
 	// 开始监听
 	err = http.ListenAndServe(":8000", r) // 在这里监听我新建的第三方路由，gorilla

@@ -43,11 +43,13 @@ func SetSessionCookie(w http.ResponseWriter, username string, remeberMe bool) {
 	http.SetCookie(w, Cookie)
 }
 func LogoutHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("开始删除cookie")
 	http.SetCookie(w, &http.Cookie{
 		Name:   "user-Cookie",
 		Value:  "",
 		Path:   "/", // 确保能找到之前生效的路径
 		MaxAge: -1,  // 立即注销
 	})
+	log.Println("cookie删除完毕")
 	SendSuccessResponse(w, "登出成功")
 }
