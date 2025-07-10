@@ -2,6 +2,7 @@ package main
 
 import (
 	"GoWeb/internal/web-app/controller"
+	"GoWeb/internal/web-app/controller/CUserOperate"
 	"GoWeb/internal/web-app/dao"
 	"GoWeb/internal/web-app/middleware"
 	"GoWeb/internal/web-app/pkg"
@@ -33,9 +34,10 @@ func main() {
 	apiRouter := r.PathPrefix("/api").Subrouter() // 根据前缀切割出了一个子路由
 	apiRouter.Use(middleware.AuthMiddleware)      // 中间件，验证安全
 
-	apiRouter.HandleFunc("/users", controller.RegisterUserHandler).Methods("POST") // 创建用户
-	apiRouter.HandleFunc("/users", controller.UserView).Methods("GET")             // 获取用户列表
-
+	apiRouter.HandleFunc("/users", CUserOperate.CreateUserHandler).Methods("POST")        // 创建用户
+	apiRouter.HandleFunc("/users", controller.UserView).Methods("GET")                    // 获取用户列表
+	apiRouter.HandleFunc("/users/{id}", CUserOperate.DeleteUserHandler).Methods("DELETE") // 删除用户
+	apiRouter.HandleFunc("/users/{id}", CUserOperate.UpdateUserHandler).Methods("UPDATE") // 更新用户
 	// 会话资源（登录/登出）--我推测，需要依靠中间件
 	apiRouter.HandleFunc("/sessions", pkg.LogoutHandler).Methods("DELETE") // 删除（登出）
 

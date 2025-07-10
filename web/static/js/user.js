@@ -1,6 +1,7 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initParticles();
     bindBtnRipple();
+    loadUsers();
 });
 
 // 粒子背景（柔和模式）
@@ -11,7 +12,8 @@ function initParticles() {
             "color": { "value": "#4299e1" },
             "opacity": { "value": 0.2 },
             "size": { "value": 2 },
-            "line_linked": { "enable": true, "opacity": 0.1 }
+            "line_linked": { "enable": true, "opacity": 0.1 },
+            "z-index": { "value": 1 }
         }
     });
 }
@@ -25,7 +27,7 @@ function bindBtnRipple() {
         ripple.className = 'btn-ripple';
         btn.appendChild(ripple);
 
-        btn.addEventListener('click', function(e) {
+        btn.addEventListener('click', function (e) {
             const rect = btn.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
@@ -45,33 +47,31 @@ function bindBtnRipple() {
         });
     });
 }
-function test(){
-    alert("点击")
-}
 
 // 加载用户列表
-function loadUsers(){
-    fetch('/api/users',{
-            method:'GET',
-            credentials:'include'
-        })
-        .then(response=>{
-            if (!response.ok){
+function loadUsers() {
+    fetch('/api/users', {
+        method: 'GET',
+        credentials: 'include'
+    })
+        .then(response => {
+            if (!response.ok) {
                 throw response.json();
             }
             return response.json();
         })
-        .then(data=> renderUsers(data.users))
-        .catch(error=>{
-            console.error("加载用户列表失败",error);
+        .then(data => renderUsers(data.users))
+        .catch(error => {
+            console.error("加载用户列表失败", error);
             alert("加载用户列表失败，请刷新页面重试");
         });
 }
+
 // 渲染用户列表
-function renderUsers(users){
+function renderUsers(users) {
     const tbody = document.querySelector('tbody');
     tbody.innerHTML = '';
-    users.forEach(user=>{
+    users.forEach(user => {
         const tr = document.createElement('tr');
         tr.className = 'table-row-hover';
 
@@ -107,23 +107,23 @@ function renderUsers(users){
 }
 
 // 删除用户
-function deleteUser(userId){
-    if(!confirm(`确定要删除${userId}的用户吗`)){
+function deleteUser(userId) {
+    if (!confirm(`确定要删除ID为${userId}的用户吗`)) {
         return;
     }
-    fetch(`api/users/${userId}`,{
-        method:`DELETE`
+    fetch(`/api/users/${userId}`, {
+        method: 'DELETE'
     })
-        .then(response=>{
-            if(response.ok){
+        .then(response => {
+            if (response.ok) {
                 loadUsers(); // 刷新用户列表
                 alert('用户删除成功');
-            }else{
+            } else {
                 alert('删除用户失败');
             }
         })
-        .catch(error=>{
-            console.error('删除用户失败',error);
+        .catch(error => {
+            console.error('删除用户失败', error);
             alert('删除用户失败');
         })
 }
@@ -132,7 +132,6 @@ function deleteUser(userId){
 
 // 打开编辑模态框
 function openEditModal(id, username, role) {
-    alert("点击了openEditModal")
     document.getElementById('editUserId').value = id;
     document.getElementById('editUsername').value = username;
     document.getElementById('editIsAdmin').checked = role === 'admin';
@@ -141,7 +140,6 @@ function openEditModal(id, username, role) {
     const editModal = new bootstrap.Modal(document.getElementById('editUserModal'));
     editModal.show();
 }
-
 
 // 提交编辑表单
 function submitEditUser() {
@@ -179,11 +177,39 @@ function submitEditUser() {
     return false; // 阻止表单默认提交
 }
 
+// 提交添加用户表单（需要后端接口支持）
+function submitAddUser() {
+    const username = document.getElementById('addUsername').value;
+    const password = document.getElementById('addPassword').value;
+    const isAdmin = document.getElementById('addIsAdmin').checked;
+    const role = isAdmin ? 'admin' : 'user';
 
+    fetch('/api/users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: username,
+            password: password,
+            role: role
+        })
+    })
+        .then(response => {
+            if (response.ok) {
+                loadUsers(); // 刷新用户列表
+                // 隐藏模态框
+                const addModal = bootstrap.Modal.getInstance(document.getElementById('addUserModal'));
+                addModal.hide();
+                alert('用户添加成功');
+            } else {
+                alert('添加用户失败');
+            }
+        })
+        .catch(error => {
+            console.error('添加用户失败:', error);
+            alert('添加用户失败');
+        });
 
-
-
-
-
-
-
+    return false; // 阻止表单默认提交
+}

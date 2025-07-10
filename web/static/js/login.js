@@ -12,6 +12,7 @@ function togglePasswordVisibility() {
         eyeIcon.classList.add('fa-eye');
     }
 }
+
 document.getElementById('loginForm').addEventListener('submit',  function (e) {
 
     e.preventDefault(); // 阻止表单默认刷新行为
@@ -28,7 +29,6 @@ document.getElementById('loginForm').addEventListener('submit',  function (e) {
     button.disabled = true;
     buttonText.style.display = 'none';
     spinner.style.display = 'inline-block';
-
 
     // 基础表单验证（空值检查）
     let hasError = false;
@@ -140,7 +140,7 @@ document.getElementById('loginForm').addEventListener('submit',  function (e) {
                 buttonText.style.display = 'inline';
                 spinner.style.display = 'none';
             });
-    } else {
+    } else {            
         // 表单验证失败，直接恢复按钮状态
         button.disabled = false;
         buttonText.style.display = 'inline';

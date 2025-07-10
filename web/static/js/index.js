@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // 粒子背景（颜色更柔和）
 function initParticles() {
     particlesJS('particles-js', {
-        "particles": {
+        "particles": {      
             "number": { "value": 50, "density": { "enable": true, "value_area": 800 } },
             "color": { "value": '#4299e1' }, // 柔和蓝色粒子
             "shape": { "type": "circle" },
